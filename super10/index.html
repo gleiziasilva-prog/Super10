@@ -1,50 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff9f8">
+  <meta name="description" content="Descubra novidades, beleza e praticidade. Na Super10, tudo custa R$ 10,00.">
+  <title>Super10 — Tudo por R$ 10,00</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="announcement"><span>Um achadinho pra chamar de seu.</span><strong>Tudo por R$ 10,00!</strong><span>Novidades toda semana ✦</span></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="Super10, página inicial">
+        <img src="logosuper10-removebg-preview.png" alt="" width="58" height="58">
+        <span>super<span class="brand-ten">10</span><small>um mundo de achadinhos</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#produtos">Achadinhos</a>
+        <a href="#avaliacoes">Avaliações</a>
+        <a href="#sobre">Nossa história</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <div class="header-actions">
+        <form class="search-box" id="product-search" role="search">
+          <input id="search-input" type="search" placeholder="O que você procura?" autocomplete="off" enterkeyhint="search" aria-label="Buscar produtos">
+          <button class="search-submit" type="submit" aria-label="Pesquisar produtos">⌕</button>
+        </form>
+        <button class="cart-button" id="open-cart" type="button" aria-label="Abrir sacola">
+          <span aria-hidden="true">♡</span><span class="cart-label">Sacola</span><span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <head>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> SEU PRÓXIMO ACHADINHO ESTÁ AQUI</span>
+        <h1>Pequenos preços.<br><em>Grandes descobertas.</em></h1>
+        <p>Beleza, casa, diversão e muito mais para deixar o dia mais leve. Aqui, cada escolha é um bom negócio.</p>
+        <div class="hero-price"><span>Tudo por</span><strong>R$ 10<sup>,00</sup></strong></div>
+        <a class="button button-dark" href="#produtos">Comprar agora <span aria-hidden="true">→</span></a>
+        <div class="hero-note"><span>✦</span> Variedade que surpreende, preço que cabe no bolso.</div>
+      </div>
+      <div class="hero-art" aria-label="Destaques Super10: beleza, casa e diversão">
+        <div class="hero-image hero-image-main"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=85" alt="Produtos de skincare em tons delicados"></div>
+        <div class="hero-image hero-image-small"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=500&q=85" alt="Seleção colorida de produtos de beleza"></div>
+        <div class="round-stamp"><span>tudo<br>por</span><strong>10</strong><small>reais</small></div>
+        <div class="floating-note">Achados<br>que encantam <span>♡</span></div>
+        <span class="art-sparkle sparkle-one">✳</span><span class="art-sparkle sparkle-two">✦</span>
+      </div>
+    </section>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <title>Super10</title>
-    </head>
+    <section class="benefits" aria-label="Vantagens Super10">
+      <div><span class="benefit-icon">✿</span><p><strong>Preço único</strong><small>R$ 10,00 em cada achado</small></p></div>
+      <div><span class="benefit-icon">♡</span><p><strong>Feito pra você</strong><small>Produtos úteis e especiais</small></p></div>
+      <div><span class="benefit-icon">✧</span><p><strong>Sempre novidades</strong><small>Um motivo novo pra se apaixonar</small></p></div>
+    </section>
 
-    <body>
-        <header class="header">
-          <section>
-            <a href="#" class="logo">
-                <img width="70" src="logosuper10-removebg-preview.png" alt="logo">
-            </a>
+    <section class="section category-section" id="categorias">
+      <div class="section-heading">
+        <div><span class="eyebrow">UM UNIVERSO DE POSSIBILIDADES</span><h2>Encontre seu <em>favorito</em></h2></div>
+        <a class="text-link" href="#produtos">Ver todos os achadinhos <span>→</span></a>
+      </div>
+      <div class="category-grid" id="category-list">
+        <button class="category-card category-beauty" data-category="Maquiagem" type="button"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt=""><span>Maquiagem<small>um toque de cor</small></span><b>↗</b></button>
+        <button class="category-card category-care" data-category="Skincare" type="button"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80" alt=""><span>Skincare<small>seu momento de cuidado</small></span><b>↗</b></button>
+        <button class="category-card category-home" data-category="Cozinha" type="button"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=600&q=80" alt=""><span>Pra sua cozinha<small>mais praticidade</small></span><b>↗</b></button>
+        <button class="category-card category-fun" data-category="Brinquedos e jogos" type="button"><img src="https://images.unsplash.com/photo-1560961911-ba7ef651a56c?auto=format&fit=crop&w=600&q=80" alt=""><span>Brincar & jogar<small>diversão sem limite</small></span><b>↗</b></button>
+      </div>
+    </section>
 
-            <nav class="navbar">
-            <a href="#">Home</a>
-            <a href="#about">Sobre</a>
-            <a href="#catalogo">Catalogo</a>
-            <a href="#review">Avaliações</a>
-            <a href="#address">Endereço</a>
-         </nav>
-
-         <div class="icons">
-            <img width="50" height="50" src="lupa.png" alt="search--v1" />
-            <img width="50" height="50" src="carrinho.png" alt="shopping-cart--v1" />
+    <section class="product-section" id="produtos">
+      <div class="section product-inner">
+        <div class="section-heading product-heading">
+          <div><span class="eyebrow">ESCOLHIDOS COM CARINHO</span><h2>Achadinhos da <em>vez</em></h2></div>
+          <div class="product-controls">
+            <label class="sr-only" for="category-filter">Filtrar por categoria</label>
+            <select id="category-filter" aria-label="Filtrar por categoria">
+              <option value="">Todas as categorias</option>
+              <option>Maquiagem</option><option>Skincare</option><option>Cozinha</option><option>Potes plásticos</option><option>Brinquedos e jogos</option><option>Utilidades domésticas</option><option>Novidades</option>
+            </select>
+            <span class="result-count" id="result-count"></span>
+          </div>
         </div>
-        </section>
-        </header>
-        <div class="Home-container">
-            <section id="#home">
-                <div class="content">
-                <h3>O MELHOR PREÇO DA REGIÃO</h3>
+        <div class="product-grid" id="product-grid" aria-live="polite"></div>
+        <p class="database-status" id="database-status" role="status">Conectando ao banco de dados...</p>
+        <p class="empty-state" id="empty-state" hidden>Nenhum achadinho por aqui. Tente outra busca ou categoria. <button id="clear-filters" type="button">Limpar filtros</button></p>
+      </div>
+    </section>
 
-                <a href="#" class="btn">APROVEITE AGORA</a>
-                </div>
-            </section>
+    <section class="newcomer section">
+      <div class="newcomer-copy"><span class="eyebrow">CHEGOU AGORA ✦</span><h2>Novidades que<br><em>alegram o dia.</em></h2><p>A gente ama descobrir coisas novas — e dividir cada achado com você.</p><a class="button button-dark" href="#produtos" data-show-new>Ver novidades <span>→</span></a></div>
+      <div class="newcomer-photo"><img src="https://images.unsplash.com/photo-1512206991021-e91d9403abfb?auto=format&fit=crop&w=1000&q=85" alt="Produtos de beleza organizados em uma necessaire"><span class="new-badge">novidade<br>boa é novidade<br>de R$ 10</span></div>
+    </section>
+
+    <section class="reviews-section" id="avaliacoes">
+      <div class="section reviews-inner">
+        <div class="section-heading reviews-heading">
+          <div><span class="eyebrow">QUEM COMPROU, CONTA</span><h2>Avaliações da <em>Super10</em></h2></div>
+          <button class="button button-dark" id="open-review" type="button">Avaliar a loja <span aria-hidden="true">✦</span></button>
         </div>
-        <section class="about" id="about">
-            <h2>Sobre <span></span>Nós</h2>
-        </section>
-    </body>
-    </html>
-           
+
+        <div class="reviews-layout">
+          <aside class="reviews-summary" aria-label="Resumo das avaliações">
+            <div class="rating-overview">
+              <strong id="rating-average">0,0</strong>
+              <div><div class="stars" id="average-stars" aria-label="Nota média: 0 de 5">☆☆☆☆☆</div><span id="rating-total">Baseado em 0 avaliações</span></div>
+            </div>
+            <div class="rating-bars" id="rating-bars" aria-label="Distribuição das notas"></div>
+          </aside>
+
+          <div class="reviews-content">
+            <div class="review-filter" id="review-filter" aria-label="Filtrar avaliações">
+              <button class="is-active" type="button" data-rating="all">Todas</button>
+              <button type="button" data-rating="5">5 estrelas</button>
+              <button type="button" data-rating="4">4 estrelas</button>
+              <button type="button" data-rating="3">3 estrelas</button>
+              <button type="button" data-rating="2">1–2 estrelas</button>
+            </div>
+            <div class="review-list" id="review-list" aria-live="polite"></div>
+            <p class="review-empty" id="review-empty" hidden>Não encontramos avaliações com esta nota.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="review-dialog" id="review-dialog" aria-labelledby="review-dialog-title">
+      <div class="admin-header">
+        <div><span class="eyebrow">SUA OPINIÃO IMPORTA</span><h2 id="review-dialog-title">Avalie sua experiência</h2></div>
+        <button class="icon-close" id="close-review" type="button" aria-label="Fechar avaliação">×</button>
+      </div>
+      <form id="review-form" class="review-form">
+        <fieldset class="star-input">
+          <legend>Sua nota</legend>
+          <div id="star-picker" role="radiogroup" aria-label="Escolha uma nota de 1 a 5">
+            <label title="1 estrela"><input type="radio" name="rating" value="1" aria-label="1 estrela"><span>★</span></label>
+            <label title="2 estrelas"><input type="radio" name="rating" value="2" aria-label="2 estrelas"><span>★</span></label>
+            <label title="3 estrelas"><input type="radio" name="rating" value="3" aria-label="3 estrelas"><span>★</span></label>
+            <label title="4 estrelas"><input type="radio" name="rating" value="4" aria-label="4 estrelas"><span>★</span></label>
+            <label title="5 estrelas"><input type="radio" name="rating" value="5" aria-label="5 estrelas" required><span>★</span></label>
+          </div>
+        </fieldset>
+        <p class="review-anonymous-note">♡ Esta avaliação será publicada de forma anônima. Não coletamos seu nome.</p>
+        <label for="review-text">Conte sua experiência
+          <textarea id="review-text" name="text" maxlength="280" required placeholder="O que você achou da Super10?"></textarea>
+        </label>
+        <div class="review-form-actions">
+          <button class="button button-dark" type="submit">Publicar avaliação</button>
+          <button class="button button-light" id="cancel-review" type="button">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <section class="about-section" id="sobre">
+      <div class="about-inner section">
+        <div class="about-visual">
+          <div class="about-mark"><span class="about-sparkle about-sparkle-one">✳</span><span class="about-sparkle about-sparkle-two">✦</span><img src="logosuper10-removebg-preview.png" alt="Logo Super10" width="170" height="170"><span class="about-stamp">PREÇO<br>ÚNICO</span></div>
+          <div class="about-visual-caption"><span>Beleza <i>·</i> casa <i>·</i> diversão</span><strong>Um universo de escolhas.</strong></div>
+        </div>
+        <div class="about-copy"><span class="eyebrow">NOSSA HISTÓRIA</span><h2>Variedade e qualidade<br><em>por um preço acessível.</em></h2><p>A Super10 surgiu com uma ideia clara: reunir produtos para diferentes momentos da rotina em um só lugar, com preço fácil de entender. De itens de beleza a utilidades para casa e opções para se divertir, cada visita é uma oportunidade de descobrir algo novo sem complicar a compra.</p><p>É assim que queremos fazer parte do seu dia: com variedade, praticidade e um valor único de <strong>R$ 10,00 por produto.</strong></p><a href="#produtos" class="text-link">Explore nossos produtos <span>→</span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato">
+    <div class="footer-main section">
+      <div class="footer-brand"><a class="brand" href="#inicio"><img src="logosuper10-removebg-preview.png" alt="" width="55" height="55"><span>super<span class="brand-ten">10</span><small>um mundo de achadinhos</small></span></a><p>Variedade, carinho e aquele preço que a gente ama.</p></div>
+      <div class="footer-links"><strong>Explore</strong><a href="#produtos">Achadinhos</a><a href="#categorias">Categorias</a><a href="#sobre">Nossa história</a></div>
+      <div class="footer-contact"><strong>Vamos conversar?</strong><p>Quer saber mais ou fazer seu pedido?</p><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Acompanhe no Instagram ↗</a></div>
+      <button class="admin-link" id="open-admin" type="button">Área administrativa</button>
+    </div>
+    <div class="footer-bottom"><span>© <span id="current-year"></span> Super10. Feito com carinho ♡</span><strong>Tudo por R$ 10,00!</strong></div>
+  </footer>
+
+  <div class="overlay" id="overlay" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Sua sacola" aria-hidden="true">
+    <div class="drawer-header"><div><span class="eyebrow">SEUS ACHADINHOS</span><h2>Sua sacola <span id="drawer-count">(0)</span></h2></div><button class="icon-close" data-close-drawer type="button" aria-label="Fechar sacola">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty" aria-live="polite"><span>♡</span><h3>Sua sacola está esperando</h3><p>Encontre seu próximo achadinho.</p><button class="button button-dark" id="continue-shopping" type="button">Continuar comprando</button></div>
+    <div class="cart-summary" id="cart-summary"><div class="total-row"><span>Total do pedido</span><strong id="cart-total">R$ 0,00</strong></div><small>Frete combinado diretamente com a loja.</small><button class="button button-dark" id="checkout-button" type="button">Finalizar pedido</button></div>
+  </aside>
+
+  <dialog class="admin-dialog" id="admin-dialog">
+    <div class="admin-header"><div><span class="eyebrow">SUA LOJA, DO SEU JEITO</span><h2>Gerenciar produtos</h2></div><button class="icon-close" id="close-admin" type="button" aria-label="Fechar painel">×</button></div>
+    <p class="admin-note">Os produtos e estoques são salvos no banco SQLite deste servidor.</p>
+    <form id="product-form" class="admin-form">
+      <input type="hidden" id="edit-id">
+      <label>Nome do produto<input id="admin-name" name="name" required maxlength="70" placeholder="Ex.: Gloss labial"></label>
+      <label>Categoria<select id="admin-category" name="category" required><option value="">Selecione</option><option>Maquiagem</option><option>Skincare</option><option>Cozinha</option><option>Potes plásticos</option><option>Brinquedos e jogos</option><option>Utilidades domésticas</option><option>Novidades</option></select></label>
+      <label>Descrição<input id="admin-description" name="description" required maxlength="120" placeholder="Uma descrição curtinha"></label>
+      <label>Foto (URL)<input id="admin-image" name="image" type="url" placeholder="https://..."></label>
+      <label>Estoque inicial<input id="admin-stock" name="stock" type="number" min="0" step="1" value="10" required></label>
+      <div class="admin-form-actions"><button class="button button-dark" id="save-product" type="submit">Adicionar produto</button><button class="button button-light" id="cancel-edit" type="button" hidden>Cancelar edição</button></div>
+    </form>
+    <div class="admin-list-heading"><strong>Produtos cadastrados</strong><span>Editar cadastro ou estoque</span></div>
+    <div id="admin-product-list" class="admin-product-list"></div>
+  </dialog>
+</body>
+</html>

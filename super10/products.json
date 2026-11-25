@@ -1,0 +1,110 @@
+[
+  {
+    "id": "p1",
+    "name": "Batom vermelho cremoso",
+    "category": "Maquiagem",
+    "description": "Cor vibrante para realçar seu visual.",
+    "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80",
+    "stock": 12,
+    "isNew": false
+  },
+  {
+    "id": "p2",
+    "name": "Kit de maquiagem colorido",
+    "category": "Maquiagem",
+    "description": "Uma seleção prática para criar seu look.",
+    "image": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80",
+    "stock": 8,
+    "isNew": false
+  },
+  {
+    "id": "p3",
+    "name": "Máscara facial hidratante",
+    "category": "Skincare",
+    "description": "Seu pequeno ritual de autocuidado.",
+    "image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=80",
+    "stock": 9,
+    "isNew": true
+  },
+  {
+    "id": "p4",
+    "name": "Potes organizadores para alimentos",
+    "category": "Potes plásticos",
+    "description": "Recipientes práticos para guardar alimentos.",
+    "image": "https://images.unsplash.com/photo-1688366150258-bee7b2d02479?auto=format&fit=crop&w=700&q=80",
+    "stock": 15,
+    "isNew": false
+  },
+  {
+    "id": "p5",
+    "name": "Espátula de cozinha",
+    "category": "Cozinha",
+    "description": "Uma ajudinha versátil para suas receitas.",
+    "image": "https://images.unsplash.com/photo-1589983006655-4ef9a756ebe3?auto=format&fit=crop&w=700&q=80",
+    "stock": 10,
+    "isNew": false
+  },
+  {
+    "id": "p6",
+    "name": "Organizador de gaveta",
+    "category": "Utilidades domésticas",
+    "description": "Caixas práticas para manter a gaveta em ordem.",
+    "image": "https://images.unsplash.com/photo-1569820229202-fcd68422edf8?auto=format&fit=crop&w=700&q=80",
+    "stock": 6,
+    "isNew": true
+  },
+  {
+    "id": "p7",
+    "name": "Blocos de montar coloridos",
+    "category": "Brinquedos e jogos",
+    "description": "Peças coloridas para criar brincadeiras divertidas.",
+    "image": "https://images.unsplash.com/photo-1560961911-ba7ef651a56c?auto=format&fit=crop&w=700&q=80",
+    "stock": 7,
+    "isNew": false
+  },
+  {
+    "id": "p8",
+    "name": "Paleta de maquiagem compacta",
+    "category": "Maquiagem",
+    "description": "Cores para completar e renovar seu visual.",
+    "image": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80",
+    "stock": 11,
+    "isNew": true
+  },
+  {
+    "id": "p9",
+    "name": "Necessaire com produtos de beleza",
+    "category": "Maquiagem",
+    "description": "Leve seus itens de beleza para onde for.",
+    "image": "https://images.unsplash.com/photo-1512206991021-e91d9403abfb?auto=format&fit=crop&w=700&q=80",
+    "stock": 5,
+    "isNew": false
+  },
+  {
+    "id": "p10",
+    "name": "Garrafa reutilizável",
+    "category": "Utilidades domésticas",
+    "description": "Uma garrafa prática para levar na rotina.",
+    "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80",
+    "stock": 0,
+    "isNew": false
+  },
+  {
+    "id": "p11",
+    "name": "Kit de pincéis de maquiagem",
+    "category": "Maquiagem",
+    "description": "Pincéis essenciais para sua produção.",
+    "image": "https://images.unsplash.com/photo-1507092183626-4e8793315843?auto=format&fit=crop&w=700&q=80",
+    "stock": 4,
+    "isNew": false
+  },
+  {
+    "id": "p12",
+    "name": "Jogo de cartas para família",
+    "category": "Brinquedos e jogos",
+    "description": "Um clássico para animar qualquer encontro.",
+    "image": "https://images.unsplash.com/photo-1531415505195-40f140d44392?auto=format&fit=crop&w=700&q=80",
+    "stock": 10,
+    "isNew": true
+  }
+]
