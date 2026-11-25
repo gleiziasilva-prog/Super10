@@ -4,6 +4,10 @@ Loja virtual responsiva para apresentar e vender produtos por R$ 10,00.
 
 ## Executar no Windows
 
+No VS Code, abra a pasta raiz do projeto e pressione `F5`; a configuração inicia o servidor e abre o site no navegador integrado.
+
+Para executar manualmente:
+
 1. Abra o PowerShell na pasta do projeto.
 2. Execute `powershell -NoProfile -ExecutionPolicy Bypass -File .\server.ps1`.
 3. Acesse <http://127.0.0.1:8080>.
