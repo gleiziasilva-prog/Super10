@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -128,6 +129,7 @@
               <button type="button" data-rating="2">1–2 estrelas</button>
             </div>
             <div class="review-list" id="review-list" aria-live="polite"></div>
+            <p class="review-status" id="review-status" role="status" aria-live="polite">Carregando avaliações...</p>
             <p class="review-empty" id="review-empty" hidden>Não encontramos avaliações com esta nota.</p>
           </div>
         </div>
@@ -155,7 +157,7 @@
           <textarea id="review-text" name="text" maxlength="280" required placeholder="O que você achou da Super10?"></textarea>
         </label>
         <div class="review-form-actions">
-          <button class="button button-dark" type="submit">Publicar avaliação</button>
+          <button class="button button-dark" id="publish-review" type="submit">Publicar avaliação</button>
           <button class="button button-light" id="cancel-review" type="button">Cancelar</button>
         </div>
       </form>

@@ -1,9 +1,17 @@
 const PRICE = 10;
 const CART_STORAGE_KEY = "super10-cart";
-const REVIEW_STORAGE_KEY = "super10-reviews";
-const baseReviewStats = { average: 0, total: 0, distribution: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } };
-
-const starterReviews = [];
+const reviewConfig = window.SUPER10_CONFIG || {};
+const reviewApiUrl = typeof reviewConfig.supabaseUrl === "string" ? reviewConfig.supabaseUrl.trim().replace(/\/+$/, "") : "";
+const reviewAnonKey = typeof reviewConfig.supabaseAnonKey === "string" ? reviewConfig.supabaseAnonKey.trim() : "";
+const reviewBackendConfigured = (() => {
+  if (!reviewApiUrl || !reviewAnonKey) return false;
+  try {
+    const url = new URL(reviewApiUrl);
+    return url.protocol === "https:" || (url.protocol === "http:" && ["localhost", "127.0.0.1"].includes(url.hostname));
+  } catch {
+    return false;
+  }
+})();
 
 const starterProducts = [
   { id: "p1", name: "Batom vermelho cremoso", category: "Maquiagem", description: "Cor vibrante para realçar seu visual.", image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80", stock: 12, isNew: false },
@@ -37,6 +45,37 @@ function saveStored(key, value) {
     console.error(`Não foi possível salvar ${key} no armazenamento local.`, error);
     alert("Não foi possível salvar as alterações neste navegador. Verifique o espaço disponível e as permissões.");
   }
+}
+
+async function requestReviews(method, body) {
+  const query = method === "GET"
+    ? "?select=id,rating,text,created_at&order=created_at.desc"
+    : "?select=id,rating,text,created_at";
+  const response = await fetch(`${reviewApiUrl}/rest/v1/reviews${query}`, {
+    method,
+    headers: {
+      apikey: reviewAnonKey,
+      Authorization: `Bearer ${reviewAnonKey}`,
+      "Accept-Profile": "public",
+      "Content-Profile": "public",
+      "Content-Type": "application/json",
+      ...(method === "POST" ? { Prefer: "return=representation" } : {})
+    },
+    ...(body ? { body: JSON.stringify(body) } : {})
+  });
+  const responseText = await response.text();
+  let result = null;
+  if (responseText) {
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      throw new Error(`O serviço de avaliações respondeu em formato inválido (HTTP ${response.status}).`);
+    }
+  }
+  if (!response.ok) {
+    throw new Error(result && (result.message || result.details) || `Falha no serviço de avaliações (HTTP ${response.status}).`);
+  }
+  return result;
 }
 
 let products = starterProducts;
@@ -258,20 +297,60 @@ function completeOrder() {
   renderCart();
 }
 
-let reviews = loadStored(REVIEW_STORAGE_KEY, starterReviews);
-if (!Array.isArray(reviews)) reviews = starterReviews;
-reviews = reviews.filter(review => !/^r[1-6]$/.test(String(review && review.id)));
-if (reviews.length === 0) saveStored(REVIEW_STORAGE_KEY, []);
+let reviews = [];
 let reviewFilter = "all";
 
+function normalizeReview(review) {
+  const rating = Number(review && review.rating);
+  const text = typeof (review && review.text) === "string" ? review.text.trim() : "";
+  if (!review || typeof review.id !== "string" || !Number.isInteger(rating) || rating < 1 || rating > 5 || !text || text.length > 280) {
+    throw new Error("O serviço retornou uma avaliação inválida.");
+  }
+  const createdAt = new Date(review.created_at);
+  return {
+    id: review.id,
+    name: "Cliente anônimo",
+    rating,
+    text,
+    date: Number.isNaN(createdAt.getTime()) ? "Data indisponível" : createdAt.toLocaleDateString("pt-BR", { day: "numeric", month: "short", year: "numeric" })
+  };
+}
+
+function setReviewStatus(message, state) {
+  const status = document.querySelector("#review-status");
+  status.textContent = message;
+  status.classList.toggle("is-error", state === "error");
+  status.classList.toggle("is-success", state === "success");
+  status.hidden = !message;
+}
+
+async function initializeReviews() {
+  const openButton = document.querySelector("#open-review");
+  openButton.disabled = true;
+  if (!reviewBackendConfigured) {
+    setReviewStatus("Avaliações compartilhadas ainda não estão configuradas.", "error");
+    return;
+  }
+
+  setReviewStatus("Carregando avaliações...", "");
+  try {
+    const result = await requestReviews("GET");
+    if (!Array.isArray(result)) throw new Error("O serviço retornou uma lista de avaliações inválida.");
+    reviews = result.map(normalizeReview);
+    renderReviews();
+    openButton.disabled = false;
+    setReviewStatus("", "");
+  } catch (error) {
+    console.error("Não foi possível carregar as avaliações compartilhadas.", error);
+    setReviewStatus("Não foi possível carregar as avaliações. Tente novamente mais tarde.", "error");
+  }
+}
+
 function renderReviewSummary() {
-  const total = baseReviewStats.total + reviews.filter(review => !starterReviews.some(item => item.id === review.id)).length;
-  const distribution = { ...baseReviewStats.distribution };
+  const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+  const total = reviews.length;
   reviews.forEach(review => {
-    if (!starterReviews.some(item => item.id === review.id)) {
-      const rating = Math.max(1, Math.min(5, Number(review.rating)));
-      distribution[rating] = (distribution[rating] || 0) + 1;
-    }
+    distribution[review.rating] += 1;
   });
 
   let weightedTotal = 0;
@@ -280,7 +359,9 @@ function renderReviewSummary() {
   });
   const average = (total ? weightedTotal / total : 0).toFixed(1).replace(".", ",");
   document.querySelector("#rating-average").textContent = average;
-  document.querySelector("#rating-total").textContent = `Baseado em ${total} avaliações`;
+  document.querySelector("#rating-total").textContent = `Baseado em ${total} ${total === 1 ? "avaliação" : "avaliações"}`;
+  const roundedAverage = Math.round(Number(average.replace(",", ".")));
+  document.querySelector("#average-stars").textContent = `${"★".repeat(roundedAverage)}${"☆".repeat(5 - roundedAverage)}`;
   document.querySelector("#average-stars").setAttribute("aria-label", `Nota média: ${average} de 5`);
 
   document.querySelector("#rating-bars").innerHTML = [5, 4, 3, 2, 1].map(rating => {
@@ -310,7 +391,6 @@ function renderReviews() {
         <div class="stars" aria-label="${Number(review.rating)} de 5 estrelas">${"★".repeat(Number(review.rating))}${"☆".repeat(5 - Number(review.rating))}</div>
       </div>
       <blockquote>“${escapeHtml(review.text)}”</blockquote>
-      <button class="helpful-button" type="button" data-helpful="${escapeHtml(review.id)}">♡ Esta avaliação foi útil · ${Number(review.helpful) || 0}</button>
     </article>`;
   }).join("");
   renderReviewSummary();
@@ -343,6 +423,7 @@ renderProducts();
 renderCart();
 renderReviews();
 initializeCatalog();
+initializeReviews();
 
 searchInput.addEventListener("input", renderProducts);
 searchInput.addEventListener("focus", () => {
@@ -384,16 +465,6 @@ document.querySelector("#review-filter").addEventListener("click", event => {
   renderReviews();
 });
 
-document.querySelector("#review-list").addEventListener("click", event => {
-  const button = event.target.closest("[data-helpful]");
-  if (!button) return;
-  const review = reviews.find(item => item.id === button.dataset.helpful);
-  if (!review) return;
-  review.helpful = (Number(review.helpful) || 0) + 1;
-  saveStored(REVIEW_STORAGE_KEY, reviews);
-  renderReviews();
-});
-
 const reviewDialog = document.querySelector("#review-dialog");
 document.querySelector("#open-review").addEventListener("click", () => {
   reviewDialog.showModal();
@@ -425,28 +496,39 @@ document.querySelectorAll("#star-picker label").forEach(label => {
   });
 });
 
-document.querySelector("#review-form").addEventListener("submit", event => {
+document.querySelector("#review-form").addEventListener("submit", async event => {
   event.preventDefault();
-  const form = new FormData(event.currentTarget);
+  const formElement = event.currentTarget;
+  const form = new FormData(formElement);
   const rating = Number(form.get("rating"));
   const text = String(form.get("text")).trim();
-  if (!rating || !text) return;
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5 || !text || text.length > 280) {
+    setReviewStatus("Escolha uma nota e escreva uma avaliação de até 280 caracteres.", "error");
+    return;
+  }
 
-  reviews.unshift({
-    id: `r-${Date.now()}`,
-    name: "Cliente anônimo",
-    rating,
-    text,
-    date: "Agora",
-    helpful: 0
-  });
-  saveStored(REVIEW_STORAGE_KEY, reviews);
-  reviewFilter = "all";
-  document.querySelectorAll("#review-filter button").forEach(button => button.classList.toggle("is-active", button.dataset.rating === "all"));
-  document.querySelectorAll("#star-picker label").forEach(label => label.classList.remove("is-selected"));
-  event.currentTarget.reset();
-  renderReviews();
-  reviewDialog.close();
+  const submitButton = document.querySelector("#publish-review");
+  submitButton.disabled = true;
+  setReviewStatus("Publicando sua avaliação...", "");
+  try {
+    const result = await requestReviews("POST", { rating, text });
+    if (!Array.isArray(result) || result.length !== 1) {
+      throw new Error("O serviço não confirmou o salvamento da avaliação.");
+    }
+    reviews.unshift(normalizeReview(result[0]));
+    reviewFilter = "all";
+    document.querySelectorAll("#review-filter button").forEach(button => button.classList.toggle("is-active", button.dataset.rating === "all"));
+    document.querySelectorAll("#star-picker label").forEach(label => label.classList.remove("is-selected"));
+    formElement.reset();
+    renderReviews();
+    reviewDialog.close();
+    setReviewStatus("Avaliação publicada e compartilhada com todos. Obrigado por opinar!", "success");
+  } catch (error) {
+    console.error("Não foi possível salvar a avaliação compartilhada.", error);
+    setReviewStatus(`Não foi possível publicar sua avaliação. ${error.message}`, "error");
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 productGrid.addEventListener("click", event => {

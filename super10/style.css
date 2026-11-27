@@ -232,8 +232,9 @@ footer { background: #fff7f6; color: #382b2d; }
 .review-author small { color: #9b8d89; font-size: 9px; }
 .review-card .stars { white-space: nowrap; }
 .review-card blockquote { margin: 13px 0 15px; color: #625956; font-size: 12px; line-height: 1.65; }
-.helpful-button { align-self: flex-start; margin-top: auto; padding: 5px 0; border: 0; background: transparent; color: #938581; cursor: pointer; font-size: 9px; }
-.helpful-button:hover { color: #a9515b; }
+.review-status { margin: 12px 0; color: #806f6b; font-size: 11px; }
+.review-status.is-error { color: #aa5757; }
+.review-status.is-success { color: #397250; }
 .review-empty { padding: 30px; border: 1px dashed #e6d8d5; color: #897a76; text-align: center; font-size: 12px; }
 .review-dialog { width: min(480px, calc(100% - 28px)); padding: 25px; border: 0; background: #fff; box-shadow: 0 20px 70px rgba(34,24,23,.2); }
 .review-dialog::backdrop { background: rgba(35,27,26,.5); }
